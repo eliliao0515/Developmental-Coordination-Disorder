@@ -8,10 +8,13 @@ struct GlowingFishItem: Identifiable {
 }
 
 struct SpaceView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @State private var currentLevel = 1
     @State private var isGameStarted = false
     @State private var showCorrect = false
     @State private var showWrong = false
+    @State private var showGameOver = false
     
     // 第一關資料
     let level1Background = "background1"
@@ -110,6 +113,7 @@ struct SpaceView: View {
                             } else {
                                 // 第二關點擊後，什麼都不做，讓畫面停留在這裡
                                 print("遊戲結束，停留在答對介面")
+                                dismiss()
                             }
                         }
                     }

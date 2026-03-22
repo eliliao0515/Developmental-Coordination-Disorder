@@ -39,7 +39,7 @@ struct MemoryView: View {
             case 1:
                 selectionView
             case 2:
-                resultView(imageName: "correct", isCorrect: true)
+                resultView(imageName: "correct 1", isCorrect: true)
             case 3:
                 resultView(imageName: "wrong", isCorrect: false)
             default:
