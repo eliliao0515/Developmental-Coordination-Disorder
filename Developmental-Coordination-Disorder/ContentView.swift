@@ -17,18 +17,17 @@ struct ContentView: View {
                 
                 HStack {
                     VStack {
-                        NavigationLink(destination: GameSelectionView()) {
-                            GlassButtonContent(text: "手部訓練（製作中）", width: 490, height: 580)
+                        NavigationLink(destination: HandView()) {
+                            GlassButtonContent(text: "寫字訓練（製作中）", width: 490, height: 580)
                         }
                         .disabled(true)
                     }
                     Spacer()
                         .frame(width: 57)
                     VStack {
-                        NavigationLink(destination: GameSelectionView()) {
-                            GlassButtonContent(text: "寫字訓練（製作中）", width: 490, height: 273)
+                        NavigationLink(destination: HandView()) {
+                            GlassButtonContent(text: "手部訓練", width: 490, height: 273)
                         }
-                        .disabled(true)
                         Spacer()
                             .frame(height: 34)
                         NavigationLink(destination: GameSelectionView()) {
