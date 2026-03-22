@@ -1,10 +1,3 @@
-//
-//  BrianView.swift
-//  DCDApp
-//
-//  Created by 訪客使用者 on 2026/3/20.
-//
-
 import SwiftUI
 import AVFoundation
 
@@ -12,6 +5,8 @@ import AVFoundation
 enum GameLevel {
     case level1
     case level2
+    case level3
+    case level4
 }
 
 struct RecognitionView: View {
@@ -20,6 +15,8 @@ struct RecognitionView: View {
     @State private var errorPopup: Bool = false
     @State var audioPlayer: AVAudioPlayer?
     @State private var currentLevel: GameLevel = .level1
+    
+    @State private var gameOver: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -36,7 +33,13 @@ struct RecognitionView: View {
                         levelOneView(w: w, h: h)
 
                     case .level2:
+                        levelTwoView(w: w, h: h)
+
+                    case .level3:
                         levelThreeView(w: w, h: h)
+                        
+                    case .level4:
+                        levelFourView(w: w, h: h)
                     }
 
                     // 彈出視窗層（所有關卡共用）
@@ -57,15 +60,20 @@ struct RecognitionView: View {
                                 .shadow(color: .black.opacity(0.3), radius: 20, x: 10, y: 10)
                                 .transition(.scale)
                                 .onTapGesture {
-                                    handleTap()
+                                    if !gameOver {
+                                        handleTap()
+                                    }
                                 }
-
-                        
-                            
-
                             Spacer()
                         }
                         .frame(width: w, height: h)
+                    }
+                    
+                    if gameOver {
+                        Color.clear
+                            .frame(width: w, height: h)
+                            .contentShape(Rectangle())
+                            .allowsHitTesting(true)
                     }
                 }
             }
@@ -77,26 +85,47 @@ struct RecognitionView: View {
         }
     }
 
-    // MARK: - Level 1 View
+    // MARK: - Level 1 View (Group_339 - new first page)
     @ViewBuilder
     func levelOneView(w: CGFloat, h: CGFloat) -> some View {
+        Image("BackgroundCoral")
+            .resizable()
+            .ignoresSafeArea()
+            .scaledToFill()
+            .frame(width: w, height: h)
+
+        // Tap anywhere on the screen to advance to level 2
+        // Or add a specific button if needed — adjust offset to match your image layout
+        Button(action: {
+            withAnimation {
+                advanceLevel()
+            }
+        }) {
+            Color.clear
+                .frame(width: w, height: h)
+        }
+    }
+
+    // MARK: - Level 2 View (Visual Recognition - was level 2, now second page)
+    @ViewBuilder
+    func levelTwoView(w: CGFloat, h: CGFloat) -> some View {
         Image("Visual Recognition")
             .resizable()
             .ignoresSafeArea()
             .scaledToFill()
             .frame(width: w, height: h)
 
-        Button(action: { playSound(named: "Eli") }) {
-            Image("Volumn")
-                .resizable()
-                .scaledToFit()
-                .frame(width: w * 0.08, height: w * 0.08)
-        }
-        .offset(x: w * 0.74, y: h * 0.25)
+        Image("Volumn")
+            .resizable()
+            .scaledToFit()
+            .frame(width: w * 0.055, height: w * 0.055)
+            .offset(x: w * 0.75, y: h * 0.265)
 
         // 錯誤泡泡
-        Button(action: { errorPopup = true }) {
-            Image("First Bubble")
+        Button(action: { audioPlayer?.stop()
+            errorPopup = true
+        }) {
+            Image("G1 - First Bubble")
                 .resizable()
                 .scaledToFit()
                 .frame(width: w * 0.185, height: w * 0.185)
@@ -105,8 +134,10 @@ struct RecognitionView: View {
         .contentShape(Circle())
         .offset(x: w * 0.1, y: h * 0.6)
 
-        Button(action: { errorPopup = true }) {
-            Image("Second Bubble")
+        Button(action: { audioPlayer?.stop()
+            errorPopup = true
+        }) {
+            Image("G1 - Second Bubble")
                 .resizable()
                 .scaledToFit()
                 .frame(width: w * 0.25, height: w * 0.25)
@@ -115,8 +146,11 @@ struct RecognitionView: View {
         .contentShape(Circle())
         .offset(x: w * 0.3, y: h * 0.43)
 
-        Button(action: { errorPopup = true }) {
-            Image("Fourth Bubble")
+        Button(action: {
+            audioPlayer?.stop()
+            errorPopup = true
+        }) {
+            Image("G1 - Fourth Bubble")
                 .resizable()
                 .scaledToFit()
                 .frame(width: w * 0.25, height: w * 0.25)
@@ -126,8 +160,10 @@ struct RecognitionView: View {
         .offset(x: w * 0.65, y: h * 0.43)
 
         // 正確答案
-        Button(action: { correctPopup = true }) {
-            Image("Third Bubble")
+        Button(action: { audioPlayer?.stop()
+            correctPopup = true
+        }) {
+            Image("G1 - Third Bubble")
                 .resizable()
                 .scaledToFit()
                 .frame(width: w * 0.25, height: w * 0.25)
@@ -137,17 +173,94 @@ struct RecognitionView: View {
         .offset(x: w * 0.48, y: h * 0.63)
     }
 
-  
-    
-    // MARK: - Level 2 View（原 ContentView3）
+    // MARK: - Level 3 View
     @ViewBuilder
     func levelThreeView(w: CGFloat, h: CGFloat) -> some View {
-        Image("Next Page")
+        Image("BackgroundCoral")
             .resizable()
             .ignoresSafeArea()
             .scaledToFill()
             .frame(width: w, height: h)
-        
+
+        // Tap anywhere on the screen to advance to level 2
+        // Or add a specific button if needed — adjust offset to match your image layout
+        Button(action: {
+            withAnimation {
+                advanceLevel()
+            }
+        }) {
+            Color.clear
+                .frame(width: w, height: h)
+        }
+    }
+    
+    // MARK: - Level 4 View
+    @ViewBuilder
+    func levelFourView(w: CGFloat, h: CGFloat) -> some View {
+        Image("Visual Recognition 2")
+            .resizable()
+            .ignoresSafeArea()
+            .scaledToFill()
+            .frame(width: w, height: h)
+
+        Image("Volumn")
+            .resizable()
+            .scaledToFit()
+            .frame(width: w * 0.055, height: w * 0.055)
+            .offset(x: w * 0.75, y: h * 0.265)
+
+        // 錯誤泡泡
+        Button(action: { audioPlayer?.stop()
+            errorPopup = true
+        }) {
+            Image("G2 - First Bubble")
+                .resizable()
+                .scaledToFit()
+                .frame(width: w * 0.185, height: w * 0.185)
+                .clipShape(Circle())
+        }
+        .contentShape(Circle())
+        .offset(x: w * 0.1, y: h * 0.6)
+
+        Button(action: { audioPlayer?.stop()
+            errorPopup = true
+        }) {
+            Image("G2 - Second Bubble")
+                .resizable()
+                .scaledToFit()
+                .frame(width: w * 0.25, height: w * 0.25)
+                .clipShape(Circle())
+        }
+        .contentShape(Circle())
+        .offset(x: w * 0.3, y: h * 0.43)
+
+        Button(action: {
+            audioPlayer?.stop()
+            errorPopup = true
+        }) {
+            Image("G2 - Third Bubble")
+                .resizable()
+                .scaledToFit()
+                .frame(width: w * 0.25, height: w * 0.25)
+                .clipShape(Circle())
+        }
+        .contentShape(Circle())
+        .offset(x: w * 0.48, y: h * 0.63)
+        // 正確答案
+        Button(action: { audioPlayer?.stop()
+            correctPopup = true
+            
+            // set game to be over
+            gameOver = true
+        }) {
+            Image("G2 - Fourth Bubble")
+                .resizable()
+                .scaledToFit()
+                .frame(width: w * 0.25, height: w * 0.25)
+                .clipShape(Circle())
+        }
+        .contentShape(Circle())
+        .offset(x: w * 0.65, y: h * 0.43)
     }
 
     // MARK: - 共用邏輯
@@ -155,6 +268,12 @@ struct RecognitionView: View {
         withAnimation {
             if correctPopup {
                 advanceLevel()
+            }
+            if errorPopup && currentLevel == .level2 {
+                playSound(named: "Eli")
+            }
+            if errorPopup && currentLevel == .level4 {
+                playSound(named: "lupinyu")
             }
             correctPopup = false
             errorPopup = false
@@ -165,9 +284,14 @@ struct RecognitionView: View {
         switch currentLevel {
         case .level1:
             currentLevel = .level2
+            playSound(named: "Eli")
         case .level2:
+            currentLevel = .level3
+        case .level3:
+            currentLevel = .level4
+            playSound(named: "lupinyu")
+        case .level4:
             print("🎉 全部關卡完成！")
-            // 可在此導向完結畫面
         }
     }
 
