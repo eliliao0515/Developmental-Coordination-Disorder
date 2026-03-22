@@ -40,6 +40,8 @@ struct DifficultyView: View {
     var slotStep: CGFloat { cardWidth + slotSpacing }
 
     var body: some View {
+        @Environment(\.dismiss) var dismiss
+        
         GeometryReader { geo in
             let centerX = geo.size.width / 2
 
@@ -79,40 +81,37 @@ struct DifficultyView: View {
             }
             .gesture(
                 DragGesture()
-                    .onChanged { value in
-                        dragOffset = value.translation.width
+                .onChanged { value in
+                    dragOffset = value.translation.width
+                }
+                .onEnded { value in
+                    let threshold = slotStep * 0.3
+                    let velocity = value.predictedEndTranslation.width - value.translation.width
+
+                    var newIndex = activeIndex
+                    if value.translation.width + velocity < -threshold {
+                        newIndex = min(cards.count - 1, activeIndex + 1)
+                    } else if value.translation.width + velocity > threshold {
+                        newIndex = max(0, activeIndex - 1)
                     }
-                    .onEnded { value in
-                        let threshold = slotStep * 0.3
-                        let velocity = value.predictedEndTranslation.width - value.translation.width
 
-                        var newIndex = activeIndex
-                        if value.translation.width + velocity < -threshold {
-                            newIndex = min(cards.count - 1, activeIndex + 1)
-                        } else if value.translation.width + velocity > threshold {
-                            newIndex = max(0, activeIndex - 1)
-                        }
-
-                        withAnimation(.spring(response: 0.4, dampingFraction: 0.82)) {
-                            activeIndex = newIndex
-                            dragOffset = 0
-                        }
-
-                        #if os(iOS)
-                        let impact = UIImpactFeedbackGenerator(style: .medium)
-                        impact.impactOccurred()
-                        #endif
+                    withAnimation(.spring(response: 0.4, dampingFraction: 0.82)) {
+                        activeIndex = newIndex
+                        dragOffset = 0
                     }
+
+                    #if os(iOS)
+                    let impact = UIImpactFeedbackGenerator(style: .medium)
+                    impact.impactOccurred()
+                    #endif
+                }
             )
         }
         .ignoresSafeArea()
-        .overlay(alignment: .topLeading) {
-            Button { dismiss() } label: {
-                Image("BackButton")
-            }
-            .position(x: 81, y: 18)
-        }
         .navigationBarBackButtonHidden(true)
+        .overlay(alignment: .topLeading) {
+            FloatImage(imageName: "BackButton", positionPadding: 0)
+        }
     }
 
     // Compute the X position of a card given the active index + drag offset

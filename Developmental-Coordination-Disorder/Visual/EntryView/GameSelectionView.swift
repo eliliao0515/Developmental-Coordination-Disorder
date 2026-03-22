@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct GameSelectionView: View {
-    @Environment(\.dismiss) var dismiss
-    
     var body: some View {
         ZStack {
             Image("BackgroundCoral")
@@ -36,13 +34,11 @@ struct GameSelectionView: View {
                 }
             }
         }
-        .overlay(alignment: .topLeading) {
-            Button { dismiss() } label: {
-                Image("BackButton")
-            }
-            .offset(x: 81, y: 18)
-        }
+        .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
+        .overlay(alignment: .topLeading) {
+            FloatImage(imageName: "BackButton", positionPadding: 60)
+        }
     }
 }
 

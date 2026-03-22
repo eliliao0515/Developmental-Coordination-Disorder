@@ -70,6 +70,11 @@ struct RecognitionView: View {
                 }
             }
         }
+        .ignoresSafeArea()
+        .navigationBarBackButtonHidden(true)
+        .overlay(alignment: .topLeading) {
+            FloatImage(imageName: "BackButton", positionPadding: 0)
+        }
     }
 
     // MARK: - Level 1 View

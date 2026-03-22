@@ -47,6 +47,10 @@ struct MemoryView: View {
             }
         }
         .ignoresSafeArea()
+        .navigationBarBackButtonHidden(true)
+        .overlay(alignment: .topLeading) {
+            FloatImage(imageName: "BackButton", positionPadding: 0)
+        }
     }
 
     // MARK: - 1. 倒數計時介面

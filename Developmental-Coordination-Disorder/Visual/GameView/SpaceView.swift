@@ -126,6 +126,11 @@ struct SpaceView: View {
                 }
             }
         }
+        .ignoresSafeArea()
+        .navigationBarBackButtonHidden(true)
+        .overlay(alignment: .topLeading) {
+            FloatImage(imageName: "BackButton", positionPadding: 0)
+        }
     }
 }
 #Preview {
