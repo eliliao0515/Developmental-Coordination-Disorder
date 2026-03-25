@@ -32,3 +32,21 @@ struct FloatImage: View {
         .padding(.top, CGFloat(positionPadding))
     }
 }
+
+struct BackButton: View {
+    @Environment(\.dismiss) var dismiss
+    
+    let imageName: String
+    let positionPadding: Int
+    
+    var body: some View {
+        Button { dismiss() } label: {
+            Image(imageName)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 106, height: 108)
+        }
+        .position(x: 78, y: 63)
+        .padding(.top, CGFloat(positionPadding))
+    }
+}

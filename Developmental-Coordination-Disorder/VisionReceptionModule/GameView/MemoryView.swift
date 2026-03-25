@@ -49,7 +49,7 @@ struct MemoryView: View {
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
         .overlay(alignment: .topLeading) {
-            FloatImage(imageName: "BackButton", positionPadding: 0)
+            BackButton(imageName: "BackButton", positionPadding: 0)
         }
     }
 
@@ -188,4 +188,3 @@ struct MemoryView: View {
 #Preview {
     MemoryView()
 }
-
