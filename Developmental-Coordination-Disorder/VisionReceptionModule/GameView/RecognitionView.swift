@@ -122,55 +122,60 @@ struct RecognitionView: View {
             .offset(x: w * 0.75, y: h * 0.265)
 
         // 錯誤泡泡
-        Button(action: { audioPlayer?.stop()
-            errorPopup = true
-        }) {
-            Image("G1 - First Bubble")
-                .resizable()
-                .scaledToFit()
-                .frame(width: w * 0.185, height: w * 0.185)
-                .clipShape(Circle())
-        }
-        .contentShape(Circle())
-        .offset(x: w * 0.1, y: h * 0.6)
-
-        Button(action: { audioPlayer?.stop()
-            errorPopup = true
-        }) {
-            Image("G1 - Second Bubble")
-                .resizable()
-                .scaledToFit()
-                .frame(width: w * 0.25, height: w * 0.25)
-                .clipShape(Circle())
-        }
-        .contentShape(Circle())
-        .offset(x: w * 0.3, y: h * 0.43)
-
-        Button(action: {
+        FloatImage(
+            imageName: "G1 - First Bubble",
+            positionPadding: 0,
+            width: w * 0.185,
+            height: w * 0.185,
+            xPosition: (w * 0.1) + (w * 0.0925),
+            yPosition: (h * 0.6) + (w * 0.0925),
+            clipAsCircle: true
+        ) {
             audioPlayer?.stop()
             errorPopup = true
-        }) {
-            Image("G1 - Fourth Bubble")
-                .resizable()
-                .scaledToFit()
-                .frame(width: w * 0.25, height: w * 0.25)
-                .clipShape(Circle())
         }
-        .contentShape(Circle())
-        .offset(x: w * 0.65, y: h * 0.43)
+
+        FloatImage(
+            imageName: "G1 - Second Bubble",
+            positionPadding: 0,
+            width: w * 0.25,
+            height: w * 0.25,
+            xPosition: (w * 0.3) + (w * 0.125),
+            yPosition: (h * 0.43) + (w * 0.125),
+            invertFloatingDirection: true,
+            clipAsCircle: true
+        ) {
+            audioPlayer?.stop()
+            errorPopup = true
+        }
+
+        FloatImage(
+            imageName: "G1 - Fourth Bubble",
+            positionPadding: 0,
+            width: w * 0.25,
+            height: w * 0.25,
+            xPosition: (w * 0.65) + (w * 0.125),
+            yPosition: (h * 0.43) + (w * 0.125),
+            invertFloatingDirection: true,
+            clipAsCircle: true
+        ) {
+            audioPlayer?.stop()
+            errorPopup = true
+        }
 
         // 正確答案
-        Button(action: { audioPlayer?.stop()
+        FloatImage(
+            imageName: "G1 - Third Bubble",
+            positionPadding: 0,
+            width: w * 0.25,
+            height: w * 0.25,
+            xPosition: (w * 0.48) + (w * 0.125),
+            yPosition: (h * 0.63) + (w * 0.125),
+            clipAsCircle: true
+        ) {
+            audioPlayer?.stop()
             correctPopup = true
-        }) {
-            Image("G1 - Third Bubble")
-                .resizable()
-                .scaledToFit()
-                .frame(width: w * 0.25, height: w * 0.25)
-                .clipShape(Circle())
         }
-        .contentShape(Circle())
-        .offset(x: w * 0.48, y: h * 0.63)
     }
 
     // MARK: - Level 3 View
@@ -210,57 +215,60 @@ struct RecognitionView: View {
             .offset(x: w * 0.75, y: h * 0.265)
 
         // 錯誤泡泡
-        Button(action: { audioPlayer?.stop()
-            errorPopup = true
-        }) {
-            Image("G2 - First Bubble")
-                .resizable()
-                .scaledToFit()
-                .frame(width: w * 0.185, height: w * 0.185)
-                .clipShape(Circle())
-        }
-        .contentShape(Circle())
-        .offset(x: w * 0.1, y: h * 0.6)
-
-        Button(action: { audioPlayer?.stop()
-            errorPopup = true
-        }) {
-            Image("G2 - Second Bubble")
-                .resizable()
-                .scaledToFit()
-                .frame(width: w * 0.25, height: w * 0.25)
-                .clipShape(Circle())
-        }
-        .contentShape(Circle())
-        .offset(x: w * 0.3, y: h * 0.43)
-
-        Button(action: {
+        FloatImage(
+            imageName: "G2 - First Bubble",
+            positionPadding: 0,
+            width: w * 0.185,
+            height: w * 0.185,
+            xPosition: (w * 0.1) + (w * 0.0925),
+            yPosition: (h * 0.6) + (w * 0.0925),
+            clipAsCircle: true
+        ) {
             audioPlayer?.stop()
             errorPopup = true
-        }) {
-            Image("G2 - Third Bubble")
-                .resizable()
-                .scaledToFit()
-                .frame(width: w * 0.25, height: w * 0.25)
-                .clipShape(Circle())
         }
-        .contentShape(Circle())
-        .offset(x: w * 0.48, y: h * 0.63)
+
+        FloatImage(
+            imageName: "G2 - Second Bubble",
+            positionPadding: 0,
+            width: w * 0.25,
+            height: w * 0.25,
+            xPosition: (w * 0.3) + (w * 0.125),
+            yPosition: (h * 0.43) + (w * 0.125),
+            invertFloatingDirection: true,
+            clipAsCircle: true
+        ) {
+            audioPlayer?.stop()
+            errorPopup = true
+        }
+
+        FloatImage(
+            imageName: "G2 - Third Bubble",
+            positionPadding: 0,
+            width: w * 0.25,
+            height: w * 0.25,
+            xPosition: (w * 0.48) + (w * 0.125),
+            yPosition: (h * 0.63) + (w * 0.125),
+            clipAsCircle: true
+        ) {
+            audioPlayer?.stop()
+            errorPopup = true
+        }
         // 正確答案
-        Button(action: { audioPlayer?.stop()
+        FloatImage(
+            imageName: "G2 - Fourth Bubble",
+            positionPadding: 0,
+            width: w * 0.25,
+            height: w * 0.25,
+            xPosition: (w * 0.65) + (w * 0.125),
+            yPosition: (h * 0.43) + (w * 0.125),
+            invertFloatingDirection: true,
+            clipAsCircle: true
+        ) {
+            audioPlayer?.stop()
             correctPopup = true
-            
-            // set game to be over
             gameOver = true
-        }) {
-            Image("G2 - Fourth Bubble")
-                .resizable()
-                .scaledToFit()
-                .frame(width: w * 0.25, height: w * 0.25)
-                .clipShape(Circle())
         }
-        .contentShape(Circle())
-        .offset(x: w * 0.65, y: h * 0.43)
     }
 
     // MARK: - 共用邏輯
