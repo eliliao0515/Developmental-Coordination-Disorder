@@ -85,7 +85,7 @@ struct SpaceView: View {
                         Spacer()
                     }.padding(.top, 40)
                     
-                    ForEach(currentFishes) { fish in
+                    ForEach(Array(currentFishes.enumerated()), id: \.element.id) { index, fish in
                         Button {
                             // 如果已經答對了且在第二關，就不再觸發按鈕，防止重複顯示
                             if !(currentLevel == 2 && showCorrect) {
@@ -95,7 +95,7 @@ struct SpaceView: View {
                             Image(fish.name)
                                 .resizable()
                                 .scaledToFit()
-                                .offset(y: areFishFloating ? -12 : 0)
+                                .offset(y: areFishFloating ? (index.isMultiple(of: 2) ? -12 : 12) : 0)
                                 .animation(
                                     .easeInOut(duration: 1.5)
                                     .repeatForever(autoreverses: true),

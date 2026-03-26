@@ -110,24 +110,24 @@ struct MemoryView: View {
 
                 if currentLevel == 1 {
                     Group {
-                        paperButton(imageName: "Paper_TL", isCorrect: true)
+                        paperButton(imageName: "Paper_TL", isCorrect: true, invertFloatingDirection: false)
                             .position(x: geometry.size.width * 0.36, y: geometry.size.height * 0.28)
-                        paperButton(imageName: "Paper_TR", isCorrect: false)
+                        paperButton(imageName: "Paper_TR", isCorrect: false, invertFloatingDirection: true)
                             .position(x: geometry.size.width * 0.74, y: geometry.size.height * 0.32)
-                        paperButton(imageName: "Paper_BL", isCorrect: false)
+                        paperButton(imageName: "Paper_BL", isCorrect: false, invertFloatingDirection: true)
                             .position(x: geometry.size.width * 0.22, y: geometry.size.height * 0.54)
-                        paperButton(imageName: "Paper_BR", isCorrect: false)
+                        paperButton(imageName: "Paper_BR", isCorrect: false, invertFloatingDirection: false)
                             .position(x: geometry.size.width * 0.58, y: geometry.size.height * 0.54)
                     }
                 } else if currentLevel == 2 {
                     Group {
-                        paperButton(imageName: "New_TL", isCorrect: false)
+                        paperButton(imageName: "New_TL", isCorrect: false, invertFloatingDirection: false)
                             .position(x: geometry.size.width * 0.36, y: geometry.size.height * 0.28)
-                        paperButton(imageName: "New_TR", isCorrect: false)
+                        paperButton(imageName: "New_TR", isCorrect: false, invertFloatingDirection: true)
                             .position(x: geometry.size.width * 0.74, y: geometry.size.height * 0.32)
-                        paperButton(imageName: "New_RT", isCorrect: false)
+                        paperButton(imageName: "New_RT", isCorrect: false, invertFloatingDirection: true)
                             .position(x: geometry.size.width * 0.22, y: geometry.size.height * 0.54)
-                        paperButton(imageName: "New_RL", isCorrect: true)
+                        paperButton(imageName: "New_RL", isCorrect: true, invertFloatingDirection: false)
                             .position(x: geometry.size.width * 0.58, y: geometry.size.height * 0.54)
                     }
                 }
@@ -160,7 +160,7 @@ struct MemoryView: View {
     }
 
     // MARK: - 輔助元件
-    func paperButton(imageName: String, isCorrect: Bool) -> some View {
+    func paperButton(imageName: String, isCorrect: Bool, invertFloatingDirection: Bool) -> some View {
         Button(action: {
             withAnimation(.spring()) {
                 gameState = isCorrect ? 2 : 3
@@ -170,7 +170,7 @@ struct MemoryView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 240)
-                .offset(y: areButtonsFloating ? -12 : 0)
+                .offset(y: areButtonsFloating ? (invertFloatingDirection ? 12 : -12) : 0)
                 .animation(
                     .easeInOut(duration: 1.5)
                     .repeatForever(autoreverses: true),
