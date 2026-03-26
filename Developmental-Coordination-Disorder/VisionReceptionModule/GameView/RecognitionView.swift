@@ -123,7 +123,7 @@ struct RecognitionView: View {
 
         // 錯誤泡泡
         FloatImage(
-            imageName: "G1 - First Bubble",
+            imageName: "VisualReception-G1-Bubble1",
             positionPadding: 0,
             width: w * 0.185,
             height: w * 0.185,
@@ -136,7 +136,7 @@ struct RecognitionView: View {
         }
 
         FloatImage(
-            imageName: "G1 - Second Bubble",
+            imageName: "VisualReception-G1-Bubble2",
             positionPadding: 0,
             width: w * 0.25,
             height: w * 0.25,
@@ -150,7 +150,7 @@ struct RecognitionView: View {
         }
 
         FloatImage(
-            imageName: "G1 - Fourth Bubble",
+            imageName: "VisualReception-G1-Bubble4",
             positionPadding: 0,
             width: w * 0.25,
             height: w * 0.25,
@@ -165,7 +165,7 @@ struct RecognitionView: View {
 
         // 正確答案
         FloatImage(
-            imageName: "G1 - Third Bubble",
+            imageName: "VisualReception-G1-Bubble3",
             positionPadding: 0,
             width: w * 0.25,
             height: w * 0.25,
@@ -216,7 +216,7 @@ struct RecognitionView: View {
 
         // 錯誤泡泡
         FloatImage(
-            imageName: "G2 - First Bubble",
+            imageName: "VisualReception-G2-Bubble1",
             positionPadding: 0,
             width: w * 0.185,
             height: w * 0.185,
@@ -229,7 +229,7 @@ struct RecognitionView: View {
         }
 
         FloatImage(
-            imageName: "G2 - Second Bubble",
+            imageName: "VisualReception-G2-Bubble2",
             positionPadding: 0,
             width: w * 0.25,
             height: w * 0.25,
@@ -243,7 +243,7 @@ struct RecognitionView: View {
         }
 
         FloatImage(
-            imageName: "G2 - Third Bubble",
+            imageName: "VisualReception-G2-Bubble3",
             positionPadding: 0,
             width: w * 0.25,
             height: w * 0.25,
@@ -256,7 +256,7 @@ struct RecognitionView: View {
         }
         // 正確答案
         FloatImage(
-            imageName: "G2 - Fourth Bubble",
+            imageName: "VisualReception-G2-Bubble4",
             positionPadding: 0,
             width: w * 0.25,
             height: w * 0.25,
