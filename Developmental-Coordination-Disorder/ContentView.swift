@@ -17,10 +17,9 @@ struct ContentView: View {
                 
                 HStack {
                     VStack {
-                        NavigationLink(destination: HandView()) {
-                            GlassButtonContent(text: "寫字訓練（製作中）", width: 490, height: 580)
+                        NavigationLink(destination: writeHomeView()) {
+                            GlassButtonContent(text: "寫字訓練", width: 490, height: 580)
                         }
-                        .disabled(true)
                     }
                     Spacer()
                         .frame(width: 57)
