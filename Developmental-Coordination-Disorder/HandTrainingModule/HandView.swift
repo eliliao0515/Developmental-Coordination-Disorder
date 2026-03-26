@@ -20,17 +20,16 @@ struct HandView: View {
     // --- 這裡完全依照你的要求，不進行任何動動 ---
     let videoItems: [VideoItem] = [
         // 第一頁 (1-9)
-        VideoItem(imageName: "Group332"), VideoItem(imageName: "Group332"), VideoItem(imageName: "Group332"),
-        VideoItem(imageName: "Group332"), VideoItem(imageName: "Group332"), VideoItem(imageName: "Group332"),
-        VideoItem(imageName: "Group332"), VideoItem(imageName: "Group332"), VideoItem(imageName: "Group332"),
+        VideoItem(imageName: "HandVideo11"), VideoItem(imageName: "HandVideo12"), VideoItem(imageName: "HandVideo13"),
+        VideoItem(imageName: "HandVideo21"), VideoItem(imageName: "HandVideo22"), VideoItem(imageName: "HandVideo23"),
+        VideoItem(imageName: "HandVideo31"), VideoItem(imageName: "HandVideo32"), VideoItem(imageName: "HandVideo33"),
         // 第二頁 (10-18)
-        VideoItem(imageName: "Group332"), VideoItem(imageName: "Group332"), VideoItem(imageName: "Group332"),
-        VideoItem(imageName: "Group332"), VideoItem(imageName: "Group332"), VideoItem(imageName: "Group332"),
-        VideoItem(imageName: "Group332"), VideoItem(imageName: "Group332"), VideoItem(imageName: "Group332"),
+        VideoItem(imageName: "HandVideo41"), VideoItem(imageName: "HandVideo42"), VideoItem(imageName: "HandVideo43"),
+        VideoItem(imageName: "HandVideo51"), VideoItem(imageName: "HandVideo52"), VideoItem(imageName: "HandVideo53"),
+        VideoItem(imageName: "HandVideo61"), VideoItem(imageName: "HandVideo62"), VideoItem(imageName: "HandVideo63"),
         // 第三頁 (19-27)
-        VideoItem(imageName: "Group332"), VideoItem(imageName: "Group332"), VideoItem(imageName: "Group332"),
-        VideoItem(imageName: "Group332"), VideoItem(imageName: "Group332"), VideoItem(imageName: "Group332"),
-        VideoItem(imageName: "Group332"), VideoItem(imageName: "Group332"), VideoItem(imageName: "Group332")
+        VideoItem(imageName: "HandVideo71"), VideoItem(imageName: "HandVideo72"), VideoItem(imageName: "HandVideo73"),
+        VideoItem(imageName: "HandVideo82")
     ]
     
     // 分頁邏輯：每頁 9 張
@@ -38,6 +37,16 @@ struct HandView: View {
         stride(from: 0, to: videoItems.count, by: 9).map {
             Array(videoItems[$0..<min($0 + 9, videoItems.count)])
         }
+    }
+
+    var columnCount: Int { columns.count }
+
+    func pageItemsForDisplay(_ items: [VideoItem]) -> [VideoItem?] {
+        var displayItems = items.map(Optional.some)
+        if items.count % columnCount == 1 {
+            displayItems.insert(nil, at: items.count - 1)
+        }
+        return displayItems
     }
     
     let pageHeight: CGFloat = 520
@@ -60,8 +69,13 @@ struct HandView: View {
                             ForEach(0..<pagedItems.count, id: \.self) { pageIndex in
                                 VStack {
                                     LazyVGrid(columns: columns, spacing: 30) {
-                                        ForEach(pagedItems[pageIndex]) { item in
-                                            LiquidVideoButton(item: item)
+                                        ForEach(Array(pageItemsForDisplay(pagedItems[pageIndex]).enumerated()), id: \.offset) { _, item in
+                                            if let item {
+                                                LiquidVideoButton(item: item)
+                                            } else {
+                                                Color.clear
+                                                    .frame(width: 192, height: 147)
+                                            }
                                         }
                                     }
                                     .padding(.vertical, 20)
@@ -273,4 +287,3 @@ struct FullScreenVideoView: View {
 #Preview {
     HandView()
 }
-

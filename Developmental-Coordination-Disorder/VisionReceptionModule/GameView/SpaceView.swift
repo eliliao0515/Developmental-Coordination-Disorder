@@ -15,6 +15,7 @@ struct SpaceView: View {
     @State private var showCorrect = false
     @State private var showWrong = false
     @State private var showGameOver = false
+    @State private var areFishFloating = false
     
     // 第一關資料
     let level1Background = "background1"
@@ -91,7 +92,16 @@ struct SpaceView: View {
                                 checkAnswer(fishName: fish.name)
                             }
                         } label: {
-                            Image(fish.name).resizable().scaledToFit()
+                            Image(fish.name)
+                                .resizable()
+                                .scaledToFit()
+                                .offset(y: areFishFloating ? -12 : 0)
+                                .animation(
+                                    .easeInOut(duration: 1.5)
+                                    .repeatForever(autoreverses: true),
+                                    value: areFishFloating
+                                )
+                                .onAppear { areFishFloating = true }
                         }
                         .frame(width: 350, height: 350)
                         .position(fish.relativePosition)

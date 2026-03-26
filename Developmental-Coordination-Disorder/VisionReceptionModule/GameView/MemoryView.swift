@@ -30,6 +30,7 @@ struct MemoryView: View {
     @State private var gameState = 0
     @State private var countdown = 5
     @State private var currentLevel = 1
+    @State private var areButtonsFloating = false
 
     var body: some View {
         ZStack {
@@ -169,6 +170,13 @@ struct MemoryView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 240)
+                .offset(y: areButtonsFloating ? -12 : 0)
+                .animation(
+                    .easeInOut(duration: 1.5)
+                    .repeatForever(autoreverses: true),
+                    value: areButtonsFloating
+                )
+                .onAppear { areButtonsFloating = true }
         }
         .buttonStyle(PlainButtonStyle())
     }
