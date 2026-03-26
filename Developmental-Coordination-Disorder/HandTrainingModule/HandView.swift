@@ -8,31 +8,25 @@ struct VideoItem: Identifiable {
 }
 
 struct HandView: View {
-    // 規格：W192, 間距 64
     let columns = [
         GridItem(.fixed(192), spacing: 64),
         GridItem(.fixed(192), spacing: 64),
         GridItem(.fixed(192), spacing: 64)
     ]
-    
+
     @State private var scrollPosition: Int? = 0
-    
-    // --- 這裡完全依照你的要求，不進行任何動動 ---
+
     let videoItems: [VideoItem] = [
-        // 第一頁 (1-9)
         VideoItem(imageName: "HandVideo11"), VideoItem(imageName: "HandVideo12"), VideoItem(imageName: "HandVideo13"),
         VideoItem(imageName: "HandVideo21"), VideoItem(imageName: "HandVideo22"), VideoItem(imageName: "HandVideo23"),
         VideoItem(imageName: "HandVideo31"), VideoItem(imageName: "HandVideo32"), VideoItem(imageName: "HandVideo33"),
-        // 第二頁 (10-18)
         VideoItem(imageName: "HandVideo41"), VideoItem(imageName: "HandVideo42"), VideoItem(imageName: "HandVideo43"),
         VideoItem(imageName: "HandVideo51"), VideoItem(imageName: "HandVideo52"), VideoItem(imageName: "HandVideo53"),
         VideoItem(imageName: "HandVideo61"), VideoItem(imageName: "HandVideo62"), VideoItem(imageName: "HandVideo63"),
-        // 第三頁 (19-27)
         VideoItem(imageName: "HandVideo71"), VideoItem(imageName: "HandVideo72"), VideoItem(imageName: "HandVideo73"),
         VideoItem(imageName: "HandVideo82")
     ]
-    
-    // 分頁邏輯：每頁 9 張
+
     var pagedItems: [[VideoItem]] {
         stride(from: 0, to: videoItems.count, by: 9).map {
             Array(videoItems[$0..<min($0 + 9, videoItems.count)])
@@ -48,22 +42,20 @@ struct HandView: View {
         }
         return displayItems
     }
-    
+
     let pageHeight: CGFloat = 520
 
     var body: some View {
         NavigationStack {
             ZStack {
-                // 1. 背景層
-                Image("bg_main")
+                Image("HandSelection")
                     .resizable()
                     .ignoresSafeArea()
                     .scaledToFill()
-                
-                // 2. 主內容與右側分頁標示器
-                HStack(alignment: .center) {
+
+                HStack(alignment: .center, spacing: 20) {
                     Spacer().frame(width: 30)
-                    
+
                     ScrollView(.vertical, showsIndicators: false) {
                         LazyVStack(spacing: 0) {
                             ForEach(0..<pagedItems.count, id: \.self) { pageIndex in
@@ -90,23 +82,21 @@ struct HandView: View {
                     .scrollTargetBehavior(.paging)
                     .frame(width: 810, height: pageHeight)
                     .clipShape(RoundedRectangle(cornerRadius: 24))
-                    .offset(y: 20)
-                    
-                    // 右側分頁點
+                    .offset(y: 60)
+
                     VStack(spacing: 12) {
                         ForEach(0..<pagedItems.count, id: \.self) { index in
                             Circle()
-                                .fill(scrollPosition == index ? Color.gray : Color.gray.opacity(0.3))
+                                .fill((scrollPosition ?? 0) == index ? Color.white : Color.white.opacity(0.3))
                                 .frame(width: 10, height: 10)
-                                .scaleEffect(scrollPosition == index ? 1.2 : 1.0)
-                                .animation(.spring(), value: scrollPosition)
+                                .scaleEffect((scrollPosition ?? 0) == index ? 1.3 : 1.0)
+                                .animation(.spring(duration: 0.3), value: scrollPosition)
                         }
                     }
-                    .frame(width: 20)
-                    .offset(y: 20)
+                    .frame(width: 30)
+                    .offset(y: 60)
                 }
-                
-                // 3. 右下角裝飾 (鸚鵡)
+
                 GeometryReader { geo in
                     Image("redbird")
                         .resizable()
@@ -127,14 +117,14 @@ struct HandView: View {
 // MARK: - 玻璃按鈕元件
 struct LiquidVideoButton: View {
     let item: VideoItem
+
     var body: some View {
         NavigationLink(destination: VideoDetailView(item: item)) {
             ZStack {
-                Color.white
-                    .opacity(0.15)
-                    .blendMode(.saturation)
-                    .cornerRadius(16)
-                
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color.white.opacity(0.15))
+                    .frame(width: 192, height: 147)
+
                 Image(item.imageName)
                     .resizable()
                     .scaledToFit()
@@ -142,70 +132,64 @@ struct LiquidVideoButton: View {
             }
         }
         .buttonStyle(.plain)
-        .frame(width: 192, height: 147)
         .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 3)
-        .glassEffect(.clear, in: .rect(cornerRadius: 16))
     }
 }
 
-// MARK: - 詳情頁面 (動畫修改重點)
+// MARK: - 詳情頁面
 struct VideoDetailView: View {
     let item: VideoItem
     @Environment(\.dismiss) var dismiss
-    
+
     @State private var player = AVPlayer()
     @State private var selectedDifficulty: String = "易"
     @State private var isFullScreen = false
-    
-    // 建立命名空間來追蹤視圖幾何位置
+
     @Namespace private var videoNamespace
-    
+
     let difficultyButtons: [(label: String, imageName: String)] = [
         ("易", "Hand-Btn-Easy"),
         ("中", "Hand-Btn-Medium"),
         ("難", "Hand-Btn-Hard")
     ]
-    
+
     var body: some View {
         GeometryReader { geo in
             let w = geo.size.width
             let h = geo.size.height
-            
+
             ZStack {
-                Image("bg_video").resizable().ignoresSafeArea()
-                
+                Image("HandGame").resizable().ignoresSafeArea()
+
                 HStack(spacing: 0) {
                     Spacer().frame(width: w * 0.18)
-                    
+
                     VStack {
                         ZStack(alignment: .bottomTrailing) {
-                            // 加上 matchedGeometryEffect 達成縮放
                             VideoPlayer(player: player)
-                                .matchedGeometryEffect(id: "PLAYER_ID", in: videoNamespace)
                                 .clipShape(RoundedRectangle(cornerRadius: w * 0.016))
-                                .shadow(color: .black.opacity(0.2), radius: w * 0.008, x: 0, y: h * 0.005)
-                            
+                                .shadow(color: .black.opacity(0.2), radius: 10)
+                                .matchedGeometryEffect(id: "video", in: videoNamespace)
+
                             Button {
-                                withAnimation(.spring(response: 0.5, dampingFraction: 0.85)) {
+                                withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
                                     isFullScreen = true
                                 }
                             } label: {
                                 Image(systemName: "arrow.up.left.and.arrow.down.right")
-                                    .font(.system(size: 20, weight: .bold))
-                                    .foregroundColor(.white)
-                                    .padding(10)
-                                    .background(Color.black.opacity(0.5))
+                                    .padding(12)
+                                    .background(.ultraThinMaterial)
                                     .clipShape(Circle())
                                     .padding(15)
                             }
                         }
                         .frame(width: w * 0.585, height: h * 0.60)
                     }
-                    
+
                     VStack(spacing: h * 0.03) {
                         ForEach(difficultyButtons, id: \.label) { btn in
                             Button {
-                                withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+                                withAnimation(.interactiveSpring()) {
                                     selectedDifficulty = btn.label
                                     changeVideo(to: btn.label)
                                 }
@@ -214,18 +198,16 @@ struct VideoDetailView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: w * 0.1)
-                                    .scaleEffect(selectedDifficulty == btn.label ? 1.1 : 1.0)
-                                    .padding(.vertical, h * 0.02)
+                                    .scaleEffect(selectedDifficulty == btn.label ? 1.15 : 1.0)
+                                    .brightness(selectedDifficulty == btn.label ? 0.1 : 0)
                             }
                         }
                     }
                     .frame(width: w * 0.25)
                 }
-                
-                // 取代 fullScreenCover，改用條件式顯示來支援幾何動畫
+
                 if isFullScreen {
                     FullScreenVideoView(player: player, isPresented: $isFullScreen, namespace: videoNamespace)
-                        .transition(.asymmetric(insertion: .identity, removal: .identity))
                 }
             }
         }
@@ -239,18 +221,17 @@ struct VideoDetailView: View {
             }
         }
     }
-    
+
     func changeVideo(to difficulty: String) {
         let videoName: String
         switch difficulty {
-        case "易": videoName = "video_easy"
-        case "中": videoName = "video_medium"
-        case "難": videoName = "video_hard"
-        default:  videoName = "IMG_8515"
+        case "易": videoName = "videoEasy"
+        case "中": videoName = "videoMedium"
+        case "難": videoName = "videoHard"
+        default: videoName = "videoEasy"
         }
         guard let url = Bundle.main.url(forResource: videoName, withExtension: "mov") else { return }
-        let newItem = AVPlayerItem(url: url)
-        player.replaceCurrentItem(with: newItem)
+        player.replaceCurrentItem(with: AVPlayerItem(url: url))
         player.play()
     }
 }
@@ -260,30 +241,29 @@ struct FullScreenVideoView: View {
     let player: AVPlayer
     @Binding var isPresented: Bool
     var namespace: Namespace.ID
-    
+
     var body: some View {
         ZStack(alignment: .topLeading) {
             Color.black.ignoresSafeArea()
-            
-            // 這裡也綁定同一個 ID
+
             VideoPlayer(player: player)
-                .matchedGeometryEffect(id: "PLAYER_ID", in: namespace)
+                .matchedGeometryEffect(id: "video", in: namespace)
                 .ignoresSafeArea()
-            
+
             Button {
-                withAnimation(.spring(response: 0.5, dampingFraction: 0.85)) {
+                withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
                     isPresented = false
                 }
             } label: {
                 Image(systemName: "xmark.circle.fill")
-                    .font(.largeTitle)
-                    .foregroundColor(.white.opacity(0.8))
-                    .padding()
+                    .font(.system(size: 44))
+                    .foregroundColor(.white.opacity(0.7))
+                    .padding(40)
             }
         }
-        .onAppear { player.play() }
     }
 }
+
 #Preview {
     HandView()
 }

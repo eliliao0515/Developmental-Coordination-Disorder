@@ -88,7 +88,7 @@ struct RecognitionView: View {
     // MARK: - Level 1 View (Group_339 - new first page)
     @ViewBuilder
     func levelOneView(w: CGFloat, h: CGFloat) -> some View {
-        Image("BackgroundCoral")
+        Image("RecognitionOneIntroduction")
             .resizable()
             .ignoresSafeArea()
             .scaledToFill()
@@ -181,7 +181,7 @@ struct RecognitionView: View {
     // MARK: - Level 3 View
     @ViewBuilder
     func levelThreeView(w: CGFloat, h: CGFloat) -> some View {
-        Image("BackgroundCoral")
+        Image("RecognitionTwoIntroduction")
             .resizable()
             .ignoresSafeArea()
             .scaledToFill()
@@ -278,10 +278,10 @@ struct RecognitionView: View {
                 advanceLevel()
             }
             if errorPopup && currentLevel == .level2 {
-                playSound(named: "Eli")
+                playSound(named: "在相似圖形中找出正確的目標圖形")
             }
             if errorPopup && currentLevel == .level4 {
-                playSound(named: "lupinyu")
+                playSound(named: "在相似圖形中找出正確的目標圖形")
             }
             correctPopup = false
             errorPopup = false
@@ -292,19 +292,19 @@ struct RecognitionView: View {
         switch currentLevel {
         case .level1:
             currentLevel = .level2
-            playSound(named: "Eli")
+            playSound(named: "在相似圖形中找出正確的目標圖形")
         case .level2:
             currentLevel = .level3
         case .level3:
             currentLevel = .level4
-            playSound(named: "lupinyu")
+            playSound(named: "在相似圖形中找出正確的目標圖形")
         case .level4:
             print("🎉 全部關卡完成！")
         }
     }
 
     func playSound(named soundName: String) {
-        if let path = Bundle.main.path(forResource: soundName, ofType: "m4a") {
+        if let path = Bundle.main.path(forResource: soundName, ofType: "mp3") {
             let url = URL(fileURLWithPath: path)
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: url)
@@ -314,8 +314,4 @@ struct RecognitionView: View {
             }
         }
     }
-}
-
-#Preview {
-    RecognitionView()
 }
