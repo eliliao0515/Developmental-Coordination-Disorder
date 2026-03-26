@@ -20,19 +20,19 @@ struct SpaceView: View {
     // 第一關資料
     let level1Background = "background1"
     let level1Fishes: [GlowingFishItem] = [
-        GlowingFishItem(name: "green",  relativePosition: CGPoint(x: 200,  y: 600)),
-        GlowingFishItem(name: "blue",   relativePosition: CGPoint(x: 480,  y: 420)),
-        GlowingFishItem(name: "purple", relativePosition: CGPoint(x: 750,  y: 420)),
-        GlowingFishItem(name: "red",    relativePosition: CGPoint(x: 1000, y: 600)),
+        GlowingFishItem(name: "Space-Fish-1", relativePosition: CGPoint(x: 200,  y: 600)),
+        GlowingFishItem(name: "Space-Fish-2", relativePosition: CGPoint(x: 480,  y: 420)),
+        GlowingFishItem(name: "Space-Fish-3", relativePosition: CGPoint(x: 750,  y: 600)),
+        GlowingFishItem(name: "Space-Fish-4", relativePosition: CGPoint(x: 1000, y: 420)),
     ]
     
     // 第二關資料
     let level2Background = "background2"
     let level2Fishes: [GlowingFishItem] = [
-        GlowingFishItem(name: "fish2_1", relativePosition: CGPoint(x: 200,  y: 600)),
-        GlowingFishItem(name: "fish2_2", relativePosition: CGPoint(x: 480,  y: 420)),
-        GlowingFishItem(name: "fish2_3", relativePosition: CGPoint(x: 750,  y: 420)),
-        GlowingFishItem(name: "fish2_4", relativePosition: CGPoint(x: 1000, y: 600)),
+        GlowingFishItem(name: "Space-Fish-5", relativePosition: CGPoint(x: 200,  y: 600)),
+        GlowingFishItem(name: "Space-Fish-6", relativePosition: CGPoint(x: 480,  y: 420)),
+        GlowingFishItem(name: "Space-Fish-7", relativePosition: CGPoint(x: 750,  y: 600)),
+        GlowingFishItem(name: "Space-Fish-8", relativePosition: CGPoint(x: 1000, y: 420)),
     ]
     
     var currentLevelBackground: String {
@@ -44,7 +44,7 @@ struct SpaceView: View {
     }
     
     func checkAnswer(fishName: String) {
-        let correctAnswer = (currentLevel == 1) ? "green" : "fish2_2"
+        let correctAnswer = (currentLevel == 1) ? "Space-Fish-1" : "Space-Fish-6"
         if fishName == correctAnswer {
             showCorrect = true
         } else {
@@ -95,7 +95,7 @@ struct SpaceView: View {
                             Image(fish.name)
                                 .resizable()
                                 .scaledToFit()
-                                .offset(y: areFishFloating ? (index.isMultiple(of: 2) ? -12 : 12) : 0)
+                                .offset(x: areFishFloating ? (index.isMultiple(of: 2) ? -12 : 12) : 0)
                                 .animation(
                                     .easeInOut(duration: 1.5)
                                     .repeatForever(autoreverses: true),
@@ -111,7 +111,7 @@ struct SpaceView: View {
                     if showCorrect {
                         ZStack {
                             Color.black.opacity(0.6).ignoresSafeArea()
-                            Image("Group 189").resizable().scaledToFit().frame(width: 800)
+                            Image("Element-Correct").resizable().scaledToFit().frame(width: 800)
                         }
                         .contentShape(Rectangle())
                         .onTapGesture {
@@ -132,7 +132,7 @@ struct SpaceView: View {
                     if showWrong {
                         ZStack {
                             Color.black.opacity(0.6).ignoresSafeArea()
-                            Image("Group 217").resizable().scaledToFit().frame(width: 800)
+                            Image("Element-Wrong").resizable().scaledToFit().frame(width: 800)
                         }
                         .contentShape(Rectangle())
                         .onTapGesture { showWrong = false }
@@ -143,7 +143,7 @@ struct SpaceView: View {
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
         .overlay(alignment: .topLeading) {
-            BackButton(imageName: "BackButton", positionPadding: 0)
+            BackButton(imageName: "Element-Backbutton", positionPadding: 0)
         }
     }
 }

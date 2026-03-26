@@ -40,9 +40,9 @@ struct MemoryView: View {
             case 1:
                 selectionView
             case 2:
-                resultView(imageName: "correct 1", isCorrect: true)
+                resultView(imageName: "Element-Correct", isCorrect: true)
             case 3:
-                resultView(imageName: "wrong", isCorrect: false)
+                resultView(imageName: "Element-Wrong", isCorrect: false)
             default:
                 EmptyView()
             }
@@ -50,7 +50,7 @@ struct MemoryView: View {
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
         .overlay(alignment: .topLeading) {
-            BackButton(imageName: "BackButton", positionPadding: 0)
+            BackButton(imageName: "Element-Backbutton", positionPadding: 0)
         }
     }
 
@@ -77,7 +77,7 @@ struct MemoryView: View {
                     }
 
                 // 修改：將 Button 改為 Image，移除所有點擊特效與功能
-                Image("voice_button")
+                Image("Element-Volume")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 80, height: 80)
@@ -110,24 +110,24 @@ struct MemoryView: View {
 
                 if currentLevel == 1 {
                     Group {
-                        paperButton(imageName: "Paper_TL", isCorrect: true, invertFloatingDirection: false)
+                        paperButton(imageName: "Memory-Paper_TL", isCorrect: true, invertFloatingDirection: false)
                             .position(x: geometry.size.width * 0.36, y: geometry.size.height * 0.28)
-                        paperButton(imageName: "Paper_TR", isCorrect: false, invertFloatingDirection: true)
+                        paperButton(imageName: "Memory-Paper_TR", isCorrect: false, invertFloatingDirection: true)
                             .position(x: geometry.size.width * 0.74, y: geometry.size.height * 0.32)
-                        paperButton(imageName: "Paper_BL", isCorrect: false, invertFloatingDirection: true)
+                        paperButton(imageName: "Memory-Paper_BL", isCorrect: false, invertFloatingDirection: true)
                             .position(x: geometry.size.width * 0.22, y: geometry.size.height * 0.54)
-                        paperButton(imageName: "Paper_BR", isCorrect: false, invertFloatingDirection: false)
+                        paperButton(imageName: "Memory-Paper_BR", isCorrect: false, invertFloatingDirection: false)
                             .position(x: geometry.size.width * 0.58, y: geometry.size.height * 0.54)
                     }
                 } else if currentLevel == 2 {
                     Group {
-                        paperButton(imageName: "New_TL", isCorrect: false, invertFloatingDirection: false)
+                        paperButton(imageName: "Memory-New_TL", isCorrect: false, invertFloatingDirection: false)
                             .position(x: geometry.size.width * 0.36, y: geometry.size.height * 0.28)
-                        paperButton(imageName: "New_TR", isCorrect: false, invertFloatingDirection: true)
+                        paperButton(imageName: "Memory-New_TR", isCorrect: false, invertFloatingDirection: true)
                             .position(x: geometry.size.width * 0.74, y: geometry.size.height * 0.32)
-                        paperButton(imageName: "New_RT", isCorrect: false, invertFloatingDirection: true)
+                        paperButton(imageName: "Memory-New_RT", isCorrect: false, invertFloatingDirection: true)
                             .position(x: geometry.size.width * 0.22, y: geometry.size.height * 0.54)
-                        paperButton(imageName: "New_RL", isCorrect: true, invertFloatingDirection: false)
+                        paperButton(imageName: "Memory-New_RL", isCorrect: true, invertFloatingDirection: false)
                             .position(x: geometry.size.width * 0.58, y: geometry.size.height * 0.54)
                     }
                 }

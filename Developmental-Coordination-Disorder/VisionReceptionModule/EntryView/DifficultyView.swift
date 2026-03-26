@@ -8,6 +8,7 @@ import UIKit
 struct CardItem: Identifiable {
     let id: Int
     let title: String
+    let imageName: String
 }
 
 // MARK: - Main View
@@ -19,10 +20,10 @@ struct DifficultyView: View {
     let game: GameName
     
     let cards: [CardItem] = [
-        CardItem(id: 0, title: "Easy"),
-        CardItem(id: 1, title: "Medium"),
-        CardItem(id: 2, title: "Challenging"),
-        CardItem(id: 3, title: "Extreme"),
+        CardItem(id: 0, title: "Easy", imageName: "difficultyView-Easy"),
+        CardItem(id: 1, title: "Medium", imageName: "difficultyView-Medium"),
+        CardItem(id: 2, title: "Hard", imageName: "difficultyView-Hard"),
+        CardItem(id: 3, title: "Extreme", imageName: "difficultyView-Extreme"),
     ]
 
     // The index of the card currently in the center slot (slot index 1 out of 0-2)
@@ -66,7 +67,7 @@ struct DifficultyView: View {
                     let opacity: Double = max(0.4, 1.0 - Double(distanceFromCenter) / Double(slotStep * 1.8))
 
                     NavigationLink(destination: game.destination) {
-                        Image("\(card.title)")
+                        Image(card.imageName)
                             .resizable()
                             .frame(width: cardWidth, height: cardHeight)
                     }
@@ -110,7 +111,7 @@ struct DifficultyView: View {
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
         .overlay(alignment: .topLeading) {
-            BackButton(imageName: "BackButton", positionPadding: 0)
+            BackButton(imageName: "Element-Backbutton", positionPadding: 0)
         }
     }
 
@@ -139,5 +140,3 @@ struct DifficultyView: View {
         }
     }
 }
-
-

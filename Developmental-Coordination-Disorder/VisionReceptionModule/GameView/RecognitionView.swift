@@ -52,7 +52,7 @@ struct RecognitionView: View {
 
                         VStack {
                             Spacer()
-                            Image(correctPopup ? "Correct" : "Error")
+                            Image(correctPopup ? "Element-Correct" : "Element-Wrong")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: w * 0.8)
@@ -81,7 +81,7 @@ struct RecognitionView: View {
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
         .overlay(alignment: .topLeading) {
-            BackButton(imageName: "BackButton", positionPadding: 0)
+            BackButton(imageName: "Element-Backbutton", positionPadding: 0)
         }
     }
 
@@ -109,13 +109,13 @@ struct RecognitionView: View {
     // MARK: - Level 2 View (Visual Recognition - was level 2, now second page)
     @ViewBuilder
     func levelTwoView(w: CGFloat, h: CGFloat) -> some View {
-        Image("Visual Recognition")
+        Image("VisualReception-Recognition-G0")
             .resizable()
             .ignoresSafeArea()
             .scaledToFill()
             .frame(width: w, height: h)
 
-        Image("Volumn")
+        Image("Element-Volume")
             .resizable()
             .scaledToFit()
             .frame(width: w * 0.055, height: w * 0.055)
@@ -202,13 +202,13 @@ struct RecognitionView: View {
     // MARK: - Level 4 View
     @ViewBuilder
     func levelFourView(w: CGFloat, h: CGFloat) -> some View {
-        Image("Visual Recognition 2")
+        Image("VisualReception-Recognition-G2")
             .resizable()
             .ignoresSafeArea()
             .scaledToFill()
             .frame(width: w, height: h)
 
-        Image("Volumn")
+        Image("Element-Volume")
             .resizable()
             .scaledToFit()
             .frame(width: w * 0.055, height: w * 0.055)

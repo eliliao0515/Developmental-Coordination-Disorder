@@ -37,7 +37,7 @@ struct GameSelectionView: View {
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
         .overlay(alignment: .topLeading) {
-            BackButton(imageName: "BackButton", positionPadding: 60)
+            BackButton(imageName: "Element-Backbutton", positionPadding: 60)
         }
     }
 }

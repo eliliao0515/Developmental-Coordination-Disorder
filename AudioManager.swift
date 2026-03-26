@@ -47,9 +47,9 @@ struct KaiView: View {
             case 1:
                 selectionView
             case 2:
-                resultView(imageName: "correct", isCorrect: true)
+                resultView(imageName: "Element-Correct", isCorrect: true)
             case 3:
-                resultView(imageName: "wrong", isCorrect: false)
+                resultView(imageName: "Element-Wrong", isCorrect: false)
             default:
                 EmptyView()
             }
@@ -80,7 +80,7 @@ struct KaiView: View {
                     }
 
                 // 修改：將 Button 改為 Image，移除所有點擊特效與功能
-                Image("voice_button")
+                Image("Element-Volume")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 80, height: 80)
@@ -113,24 +113,24 @@ struct KaiView: View {
 
                 if currentLevel == 1 {
                     Group {
-                        paperButton(imageName: "Paper_TL", isCorrect: true)
+                        paperButton(imageName: "Memory-Paper_TL", isCorrect: true)
                             .position(x: geometry.size.width * 0.36, y: geometry.size.height * 0.28)
-                        paperButton(imageName: "Paper_TR", isCorrect: false)
+                        paperButton(imageName: "Memory-Paper_TR", isCorrect: false)
                             .position(x: geometry.size.width * 0.74, y: geometry.size.height * 0.32)
-                        paperButton(imageName: "Paper_BL", isCorrect: false)
+                        paperButton(imageName: "Memory-Paper_BL", isCorrect: false)
                             .position(x: geometry.size.width * 0.22, y: geometry.size.height * 0.54)
-                        paperButton(imageName: "Paper_BR", isCorrect: false)
+                        paperButton(imageName: "Memory-Paper_BR", isCorrect: false)
                             .position(x: geometry.size.width * 0.58, y: geometry.size.height * 0.54)
                     }
                 } else if currentLevel == 2 {
                     Group {
-                        paperButton(imageName: "New_TL", isCorrect: false)
+                        paperButton(imageName: "Memory-New_TL", isCorrect: false)
                             .position(x: geometry.size.width * 0.36, y: geometry.size.height * 0.28)
-                        paperButton(imageName: "New_TR", isCorrect: false)
+                        paperButton(imageName: "Memory-New_TR", isCorrect: false)
                             .position(x: geometry.size.width * 0.74, y: geometry.size.height * 0.32)
-                        paperButton(imageName: "New_RT", isCorrect: false)
+                        paperButton(imageName: "Memory-New_RT", isCorrect: false)
                             .position(x: geometry.size.width * 0.22, y: geometry.size.height * 0.54)
-                        paperButton(imageName: "New_RL", isCorrect: true)
+                        paperButton(imageName: "Memory-New_RL", isCorrect: true)
                             .position(x: geometry.size.width * 0.58, y: geometry.size.height * 0.54)
                     }
                 }
@@ -192,4 +192,3 @@ struct KaiView: View {
 #Preview {
     KaiView()
 }
-

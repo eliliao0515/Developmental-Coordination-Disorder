@@ -119,7 +119,7 @@ struct HandView: View {
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
         .overlay(alignment: .topLeading) {
-            BackButton(imageName: "BackButton", positionPadding: 0)
+            BackButton(imageName: "Element-Backbutton", positionPadding: 0)
         }
     }
 }
@@ -161,9 +161,9 @@ struct VideoDetailView: View {
     @Namespace private var videoNamespace
     
     let difficultyButtons: [(label: String, imageName: String)] = [
-        ("易", "btn_easy"),
-        ("中", "btn_medium"),
-        ("難", "btn_hard")
+        ("易", "Hand-Btn-Easy"),
+        ("中", "Hand-Btn-Medium"),
+        ("難", "Hand-Btn-Hard")
     ]
     
     var body: some View {
@@ -235,7 +235,7 @@ struct VideoDetailView: View {
         .onDisappear { player.pause() }
         .overlay(alignment: .topLeading) {
             if !isFullScreen {
-                BackButton(imageName: "BackButton", positionPadding: 0)
+                BackButton(imageName: "Element-Backbutton", positionPadding: 0)
             }
         }
     }
